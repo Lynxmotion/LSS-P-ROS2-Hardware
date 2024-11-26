@@ -13,7 +13,7 @@
 
       <joint name="pro_joint_1">
         <param name="id">1</param>
-        <param name="direction">1</param>
+        <param name="max_speed">65</param>
         <command_interface name="position">
           <param name="min">-3.14</param>
           <param name="max">3.14</param>
@@ -22,7 +22,7 @@
       </joint>
       <joint name="pro_joint_2">
         <param name="id">2</param>
-        <param name="direction">1</param>
+        <param name="max_speed">65</param>
         <command_interface name="position">
           <param name="min">-3.14</param>
           <param name="max">3.14</param>

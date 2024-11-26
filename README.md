@@ -117,7 +117,7 @@ ros2 topic pub /forward_position_controller/commands std_msgs/msg/Float64MultiAr
 
 If you want more details about the LSS-P communication protocol, visit this [website](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo-pro/lss-p-communication-protocol/).
 
-Official Lynxmotion PRO Robotic Arm ROS2 Package available [here](https://github.com/Lynxmotion/PRO-ROS2-Arms). 
+Official Lynxmotion PRO Robotic Arm ROS2 Package available [here](https://github.com/Lynxmotion/SES-P-ROS2-Arms). 
 
 Read more about the PRO Robotic Arm in the [Wiki](https://wiki.lynxmotion.com/info/wiki/lynxmotion/view/ses-pro-arms/).
 

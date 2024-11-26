@@ -35,12 +35,12 @@ CallbackReturn ProMotorHardware::on_init(const hardware_interface::HardwareInfo 
   hw_commands_.resize(info_.joints.size(), 0.0);
   motors_.resize(info_.joints.size(), nullptr);
   joint_ids_.resize(info_.joints.size(), 0);
-  joint_directions_.resize(info_.joints.size(), 0);
+  joint_max_speeds_.resize(info_.joints.size(), 0);
 
   // Get parameters from URDF
   for (size_t i = 0; i < info_.joints.size(); i++) {
     joint_ids_[i] = std::stoi(info_.joints[i].parameters.at("id"));
-    joint_directions_[i] = std::stoi(info_.joints[i].parameters.at("direction"));
+    joint_max_speeds_[i] = std::stoi(info_.joints[i].parameters.at("max_speed"));
   }
 
   // Register interfaces
@@ -130,9 +130,9 @@ CallbackReturn ProMotorHardware::on_configure(const rclcpp_lifecycle::State & /*
       return CallbackReturn::ERROR;
     }
 
-    if (!pro_set_gyre(motors_[i], joint_directions_[i])) {
+    if (!pro_set_max_speed(motors_[i], joint_max_speeds_[i] * 100)) {
       RCLCPP_ERROR(rclcpp::get_logger("ProMotorHardware"), 
-                   "Failed to set gyre direction for motor %zu: %s", i, strerror(errno));
+                   "Failed to set max speed for motor %zu: %s", i, strerror(errno));
       cleanup();
       return CallbackReturn::ERROR;
     }

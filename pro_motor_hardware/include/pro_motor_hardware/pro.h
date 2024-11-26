@@ -64,7 +64,7 @@ extern "C" {
 
 // Commands - actions settings
 #define PRO_ActionColorLED "LED"
-#define PRO_ActionGyreDirection "G"
+#define PRO_ActionMaxSpeed "SD"
 
 // Commands - queries
 #define PRO_QueryPosition "QD"
@@ -104,7 +104,7 @@ int pro_get_position(PRO* pro);
 int pro_get_speed(PRO* pro);
 int pro_get_status(PRO* pro);
 bool pro_set_color_led(PRO* pro, int color);
-bool pro_set_gyre(PRO* pro, int gyre);
+bool pro_set_max_speed(PRO* pro, int speed);
 
 #ifdef __cplusplus
 }

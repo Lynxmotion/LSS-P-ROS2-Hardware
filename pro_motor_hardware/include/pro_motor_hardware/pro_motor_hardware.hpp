@@ -54,7 +54,7 @@ private:
   // Motor instances and parameters
   std::vector<PRO*> motors_;
   std::vector<int> joint_ids_;
-  std::vector<int> joint_directions_;
+  std::vector<int> joint_max_speeds_;
 
   // Interface vectors
   std::vector<hardware_interface::StateInterface> state_interfaces_;

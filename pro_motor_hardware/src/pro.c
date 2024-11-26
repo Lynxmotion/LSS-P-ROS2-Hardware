@@ -269,9 +269,9 @@ bool pro_set_color_led(PRO* pro, int color)
     return generic_write(pro->servo_id, PRO_ActionColorLED, param);
 }
 
-bool pro_set_gyre(PRO* pro, int gyre)
+bool pro_set_max_speed(PRO* pro, int speed)
 {
     char param[20];
-    snprintf(param, sizeof(param), "%d", gyre);
-    return generic_write(pro->servo_id, PRO_ActionGyreDirection, param);
+    snprintf(param, sizeof(param), "%d", speed);
+    return generic_write(pro->servo_id, PRO_ActionMaxSpeed, param);
 }
