@@ -50,6 +50,7 @@ private:
   std::vector<double> hw_commands_;
   std::vector<double> hw_positions_;
   std::vector<double> hw_velocities_;
+  std::vector<double> hw_accelerations_;
   
   // Motor instances and parameters
   std::vector<PRO*> motors_;

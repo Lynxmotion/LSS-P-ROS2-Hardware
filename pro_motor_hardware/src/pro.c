@@ -256,6 +256,12 @@ int pro_get_speed(PRO* pro)
     return generic_read_blocking_int(pro->servo_id, PRO_QuerySpeed);
 }
 
+int pro_get_acceleration(PRO* pro)
+{
+    generic_write(pro->servo_id, PRO_QueryAngulaArcceleration, NULL);
+    return generic_read_blocking_int(pro->servo_id, PRO_QueryAngulaArcceleration);
+}
+
 int pro_get_status(PRO* pro)
 {
     generic_write(pro->servo_id, PRO_QueryStatus, NULL);
