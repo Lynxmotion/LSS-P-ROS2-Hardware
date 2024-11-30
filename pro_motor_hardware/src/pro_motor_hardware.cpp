@@ -32,7 +32,6 @@ CallbackReturn ProMotorHardware::on_init(const hardware_interface::HardwareInfo 
   // Initialize vectors with the correct size
   hw_positions_.resize(info_.joints.size(), 0.0);
   hw_velocities_.resize(info_.joints.size(), 0.0);
-  hw_accelerations_.resize(info_.joints.size(), 0.0);
   hw_commands_.resize(info_.joints.size(), 0.0);
   motors_.resize(info_.joints.size(), nullptr);
   joint_ids_.resize(info_.joints.size(), 0);
@@ -58,11 +57,6 @@ CallbackReturn ProMotorHardware::on_init(const hardware_interface::HardwareInfo 
         info_.joints[i].name, 
         hardware_interface::HW_IF_VELOCITY, 
         &hw_velocities_[i]));
-    state_interfaces_.emplace_back(
-      hardware_interface::StateInterface(
-        info_.joints[i].name, 
-        hardware_interface::HW_IF_ACCELERATION, 
-        &hw_accelerations_[i]));
 
     // Register command interfaces
     command_interfaces_.emplace_back(
@@ -301,17 +295,6 @@ hardware_interface::return_type ProMotorHardware::read(
     }
     // Convert to radians/s
     hw_velocities_[i] = speed_hundredth_deg * HUNDREDTH_DEGREE_TO_RADIAN;
-
-    // Read acceleration in 0.01 degree/s² units
-    errno = 0;
-    int accel_hundredth_deg = pro_get_acceleration(motors_[i]);
-    if (accel_hundredth_deg == -1 && errno != 0) {
-      RCLCPP_ERROR(rclcpp::get_logger("ProMotorHardware"), 
-                   "Failed to read acceleration from motor %zu: %s", i, strerror(errno));
-      return hardware_interface::return_type::ERROR;
-    }
-    // Convert to radians/s²
-    hw_accelerations_[i] = accel_hundredth_deg * HUNDREDTH_DEGREE_TO_RADIAN;
   }
 
   return hardware_interface::return_type::OK;
@@ -360,8 +343,6 @@ std::vector<hardware_interface::StateInterface> ProMotorHardware::export_state_i
       info_.joints[i].name, hardware_interface::HW_IF_POSITION, &hw_positions_[i]));
     state_interfaces.emplace_back(hardware_interface::StateInterface(
       info_.joints[i].name, hardware_interface::HW_IF_VELOCITY, &hw_velocities_[i]));
-    state_interfaces.emplace_back(hardware_interface::StateInterface(
-      info_.joints[i].name, hardware_interface::HW_IF_ACCELERATION, &hw_accelerations_[i]));
   }
   return state_interfaces;
 }
