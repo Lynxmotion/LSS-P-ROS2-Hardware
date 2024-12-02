@@ -79,7 +79,6 @@ bool pro_hold(PRO* pro);
 bool pro_move(PRO* pro, int position);
 int pro_get_position(PRO* pro);
 int pro_get_speed(PRO* pro);
-int pro_get_deceleration(PRO* pro);
 int pro_get_status(PRO* pro);
 bool pro_set_color_led(PRO* pro, int color);
 bool pro_set_max_speed(PRO* pro, int speed);
