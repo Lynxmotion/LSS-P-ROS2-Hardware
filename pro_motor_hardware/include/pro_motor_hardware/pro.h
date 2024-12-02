@@ -37,6 +37,12 @@ extern "C" {
 // Commands - actions settings
 #define PRO_ActionColorLED "LED"
 #define PRO_ActionMaxSpeed "SD"
+#define PRO_ActionAccel "AA"
+#define PRO_ActionDecel "AD"
+
+// Commands - modifiers
+#define PRO_ModifierMoveTimed "T"
+#define PRO_ModifierMoveSpeed "SD"
 
 // Commands - queries
 #define PRO_QueryPosition "QD"
@@ -73,9 +79,12 @@ bool pro_hold(PRO* pro);
 bool pro_move(PRO* pro, int position);
 int pro_get_position(PRO* pro);
 int pro_get_speed(PRO* pro);
+int pro_get_deceleration(PRO* pro);
 int pro_get_status(PRO* pro);
 bool pro_set_color_led(PRO* pro, int color);
 bool pro_set_max_speed(PRO* pro, int speed);
+bool pro_set_acceleration(PRO* pro, int acceleration);
+bool pro_set_deceleration(PRO* pro, int deceleration);
 
 #ifdef __cplusplus
 }

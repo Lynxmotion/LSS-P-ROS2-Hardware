@@ -244,6 +244,48 @@ bool pro_move(PRO* pro, int position)
     return generic_write(pro->servo_id, PRO_ActionMove, param);
 }
 
+bool pro_move_timed(PRO* pro, int position, int move_time_ms)
+{
+    char param[40];
+    snprintf(param, sizeof(param), "%d%s%d", position, PRO_ModifierMoveTimed, move_time_ms);
+    return generic_write(pro->servo_id, PRO_ActionMove, param);
+}
+
+bool pro_move_speed(PRO* pro, int position, int speed)
+{
+    char param[40];
+    snprintf(param, sizeof(param), "%d%s%d", position, PRO_ModifierMoveSpeed, speed);
+    return generic_write(pro->servo_id, PRO_ActionMove, param);
+}
+
+bool pro_set_color_led(PRO* pro, int color)
+{
+    char param[20];
+    snprintf(param, sizeof(param), "%d", color);
+    return generic_write(pro->servo_id, PRO_ActionColorLED, param);
+}
+
+bool pro_set_max_speed(PRO* pro, int speed)
+{
+    char param[20];
+    snprintf(param, sizeof(param), "%d", speed);
+    return generic_write(pro->servo_id, PRO_ActionMaxSpeed, param);
+}
+
+bool pro_set_acceleration(PRO* pro, int acceleration)
+{
+    char param[20];
+    snprintf(param, sizeof(param), "%d", acceleration);
+    return generic_write(pro->servo_id, PRO_ActionAccel, param);
+}
+
+bool pro_set_deceleration(PRO* pro, int deceleration)
+{
+    char param[20];
+    snprintf(param, sizeof(param), "%d", deceleration);
+    return generic_write(pro->servo_id, PRO_ActionDecel, param);
+}
+
 int pro_get_position(PRO* pro)
 {
     generic_write(pro->servo_id, PRO_QueryPosition, NULL);
@@ -260,18 +302,4 @@ int pro_get_status(PRO* pro)
 {
     generic_write(pro->servo_id, PRO_QueryStatus, NULL);
     return generic_read_blocking_int(pro->servo_id, PRO_QueryStatus);
-}
-
-bool pro_set_color_led(PRO* pro, int color)
-{
-    char param[20];
-    snprintf(param, sizeof(param), "%d", color);
-    return generic_write(pro->servo_id, PRO_ActionColorLED, param);
-}
-
-bool pro_set_max_speed(PRO* pro, int speed)
-{
-    char param[20];
-    snprintf(param, sizeof(param), "%d", speed);
-    return generic_write(pro->servo_id, PRO_ActionMaxSpeed, param);
 }

@@ -36,11 +36,13 @@ CallbackReturn ProMotorHardware::on_init(const hardware_interface::HardwareInfo 
   motors_.resize(info_.joints.size(), nullptr);
   joint_ids_.resize(info_.joints.size(), 0);
   joint_max_speeds_.resize(info_.joints.size(), 0);
+  joint_accelerations_.resize(info_.joints.size(), 0);
 
   // Get parameters from URDF
   for (size_t i = 0; i < info_.joints.size(); i++) {
     joint_ids_[i] = std::stoi(info_.joints[i].parameters.at("id"));
     joint_max_speeds_[i] = std::stoi(info_.joints[i].parameters.at("max_speed"));
+    joint_accelerations_[i] = std::stoi(info_.joints[i].parameters.at("acceleration"));
   }
 
   // Register interfaces
@@ -133,6 +135,20 @@ CallbackReturn ProMotorHardware::on_configure(const rclcpp_lifecycle::State & /*
     if (!pro_set_max_speed(motors_[i], joint_max_speeds_[i] * 100)) {
       RCLCPP_ERROR(rclcpp::get_logger("ProMotorHardware"), 
                    "Failed to set max speed for motor %zu: %s", i, strerror(errno));
+      cleanup();
+      return CallbackReturn::ERROR;
+    }
+
+    if (!pro_set_acceleration(motors_[i], joint_accelerations_[i] * 100)) {
+      RCLCPP_ERROR(rclcpp::get_logger("ProMotorHardware"), 
+                   "Failed to set angular acceleration for motor %zu: %s", i, strerror(errno));
+      cleanup();
+      return CallbackReturn::ERROR;
+    }
+
+    if (!pro_set_deceleration(motors_[i], joint_accelerations_[i] * 100)) {
+      RCLCPP_ERROR(rclcpp::get_logger("ProMotorHardware"), 
+                   "Failed to set angular deceleration for motor %zu: %s", i, strerror(errno));
       cleanup();
       return CallbackReturn::ERROR;
     }
