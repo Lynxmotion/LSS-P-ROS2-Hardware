@@ -16,6 +16,7 @@ The LSS-P-ROS2-Hardware repository contains the hardware interface for the Lynxm
 2. [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)
 3. ROS2 dev tools:
 ```
+sudo apt install python3-pip
 sudo pip install colcon-common-extensions
 sudo pip install vcstool
 ```
