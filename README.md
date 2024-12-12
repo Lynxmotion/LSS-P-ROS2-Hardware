@@ -12,7 +12,7 @@ The LSS-P-ROS2-Hardware repository contains the hardware interface for the Lynxm
 
 ## Prerequisites
 
-1. [Ubuntu 22.04.3 (Jammy Jellyfish)](https://releases.ubuntu.com/jammy/)
+1. [Ubuntu 22.04 (Jammy Jellyfish)](https://releases.ubuntu.com/jammy/)
 2. [ROS2 Humble](https://docs.ros.org/en/humble/Installation.html)
 3. ROS2 dev tools:
 ```
