@@ -29,6 +29,7 @@ rosdep update
 ## Package installation
 
 ```
+sudo apt install git
 git clone https://github.com/Lynxmotion/LSS-P-ROS2-Hardware.git
 mkdir -p src
 mv LSS-P-ROS2-Hardware/* src
